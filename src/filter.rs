@@ -614,7 +614,7 @@ fn apply_drop_shadow(
 
     if let Some((std_dx, std_dy, box_blur)) = resolve_std_dev(fe.std_dev_x, fe.std_dev_y, units, bbox, ts) {
         if box_blur {
-            svgfilters::box_blur(std_dx, std_dy, into_svgfilters_image_mut!(shadow_pixmap));
+            svgfilters::box_blur(std_dx, std_dy, into_svgfilters_image_mut!(shadow_pixmap), true);
         } else {
             svgfilters::iir_blur(std_dx, std_dy, into_svgfilters_image_mut!(shadow_pixmap));
         }
@@ -670,7 +670,7 @@ fn apply_blur(
     let mut pixmap = input.into_color_space(cs)?.take()?;
 
     if box_blur {
-        svgfilters::box_blur(std_dx, std_dy, into_svgfilters_image_mut!(pixmap));
+        svgfilters::box_blur(std_dx, std_dy, into_svgfilters_image_mut!(pixmap), false);
     } else {
         svgfilters::iir_blur(std_dx, std_dy, into_svgfilters_image_mut!(pixmap));
     }
